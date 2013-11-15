@@ -1,0 +1,11 @@
+{
+    "name": "MorseNode",
+    "version": "0.0.1",
+    "description": "Morse Code via Node",
+    "dependencies": {
+        "socket.io": "latest",
+        "express": "latest",
+        "express3-handlebars": "latest"
+    },
+    "author": "@mfkp"
+}
