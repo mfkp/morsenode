@@ -6,7 +6,6 @@ var port = process.env.PORT || 5000;
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-console.log(__dirname);
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
@@ -17,8 +16,12 @@ var io = require('socket.io').listen(app.listen(port));
 console.log('Listening on port ' + port);
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('message', { message: 'welcome to the node-o-sphere' });
+  socket.emit('message', { message: 'welcome to the node-o-sphere'});
+  socket.on('room', function(room) {
+    socket.join(room);
+  });
   socket.on('send', function (data) {
-    io.sockets.emit('message', data);
+    socket.broadcast.to(data.room).emit('message', data); // just to other users
+    // io.sockets.in(data.room).emit('message', data); // to other users + self
   });
 });
