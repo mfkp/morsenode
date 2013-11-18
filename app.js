@@ -16,7 +16,6 @@ var io = require('socket.io').listen(app.listen(port));
 console.log('Listening on port ' + port);
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('message', { message: 'welcome to the node-o-sphere'});
   socket.on('room', function(room) {
     socket.join(room);
   });
