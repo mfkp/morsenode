@@ -67,15 +67,20 @@ window.onload = function() {
     socket.emit('send', { message: text, room: roomId });
   };
 
-  pushButton.onmousedown = function () {
+  var mousedown = function () {
     audio.play();
     socket.emit('beepStart', { room: roomId });
   };
 
-  pushButton.onmouseup = function () {
+  var mouseup = function () {
     audio.pause();
     socket.emit('beepEnd', { room: roomId });
   };
+
+  pushButton.onmousedown = mousedown;
+  pushButton.ontouchstart = mousedown;
+  pushButton.onmouseup = mouseup;
+  pushButton.ontouchend = mouseup;
 
 }
 
