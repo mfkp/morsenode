@@ -21,7 +21,12 @@ io.sockets.on('connection', function (socket) {
     socket.join(room);
   });
   socket.on('send', function (data) {
-    socket.broadcast.to(data.room).emit('message', data); // just to other users
-    // io.sockets.in(data.room).emit('message', data); // to other users + self
+    io.sockets.in(data.room).emit('message', data); // to other users + self
+  });
+  socket.on('beepStart', function (data) {
+    socket.broadcast.to(data.room).emit('beepStart');
+  });
+  socket.on('beepEnd', function (data) {
+    socket.broadcast.to(data.room).emit('beepEnd');
   });
 });
