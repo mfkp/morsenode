@@ -3,6 +3,10 @@ body {
   font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
 }
 
+a {
+  color: #6A1E3C;
+}
+
 .container {
   max-width: 800px;
   min-width: 465px;
