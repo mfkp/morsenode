@@ -56,14 +56,6 @@ window.onload = function() {
     }
   });
 
-  // socket.on('beepStart', function() {
-  //   audio2.play();
-  // });
-
-  // socket.on('beepEnd', function() {
-  //   audio2.pause();
-  // });
-
   socket.on('beep', function(len) {
     if (audio2.paused) {
       playAudio(audio2, len);
@@ -104,7 +96,6 @@ window.onload = function() {
 
   var mousedown = function () {
     audio.play();
-    // socket.emit('beepStart', { room: roomId });
     pushButton.className = 'key key-down';
     start = +new Date();
   };
