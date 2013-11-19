@@ -1,0 +1,27 @@
+body {
+  background: url('/images/ricepaper_v3.png') repeat;
+}
+
+.key {
+  background: url('/images/morsenode-sprite2.png') no-repeat;
+}
+
+.key-up {
+  background-position: -19px -3px;
+  width: 465px;
+  height: 265px;
+}
+
+.key-down {
+  background-position: -20px -272px;
+  width: 465px;
+  height: 265px;
+}
+
+.no-select {
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none; /* IE10+ */
+  -user-select: none;
+}

@@ -6,30 +6,32 @@ window.onload = function() {
   var sendButton = document.getElementById('send');
   var content = document.getElementById('content');
   var pushButton = document.getElementById('push-button');
+  var start, end;
+  var queue = [];
 
   // create the sending audio beep tone
-  var audio = new Audio();
-  var wave = new RIFFWAVE();
+  var waveLow = new RIFFWAVE();
   var data = [];
-  wave.header.sampleRate = 22100;
-  wave.header.numChannels = 2;
+  waveLow.header.sampleRate = 22100;
+  waveLow.header.numChannels = 2;
   var i = 0;
   while (i<1000000)
     data[i++] = 128+Math.round(127*Math.sin(i/10));
-  wave.Make(data);
-  audio.src = wave.dataURI;
+  waveLow.Make(data);
+  var audio = new Audio();
+  audio.src = waveLow.dataURI;
 
   // create the receiving audio beep tone
-  var audio2 = new Audio();
-  wave = new RIFFWAVE();
+  var waveHigh = new RIFFWAVE();
   data = [];
-  wave.header.sampleRate = 32100;
-  wave.header.numChannels = 2;
+  waveHigh.header.sampleRate = 32100;
+  waveHigh.header.numChannels = 2;
   i = 0;
   while (i<1000000)
     data[i++] = 128+Math.round(127*Math.sin(i/10));
-  wave.Make(data);
-  audio2.src = wave.dataURI;
+  waveHigh.Make(data);
+  var audio2 = new Audio();
+  audio2.src = waveHigh.dataURI;
 
   var roomId;
   if (window.location.hash) {
@@ -54,13 +56,45 @@ window.onload = function() {
     }
   });
 
-  socket.on('beepStart', function() {
-    audio2.play();
+  // socket.on('beepStart', function() {
+  //   audio2.play();
+  // });
+
+  // socket.on('beepEnd', function() {
+  //   audio2.pause();
+  // });
+
+  socket.on('beep', function(len) {
+    if (audio2.paused) {
+      playAudio(audio2, len);
+    } else {
+      queue.push(len);
+      console.log(queue);
+      checkQueue();
+    }
   });
 
-  socket.on('beepEnd', function() {
-    audio2.pause();
-  });
+  var playAudio = function(audio, len) {
+    audio.play();
+    pushButton.className = 'key key-down';
+    window.setTimeout(function() {
+      audio.pause();
+      pushButton.className = 'key key-up';
+    }, len);
+  };
+
+  var checkQueue = function() {
+    window.setTimeout(function() {
+      if (audio2.paused) {
+        if (queue.length > 0) {
+          playAudio(audio2, queue.shift());
+          checkQueue();
+        }
+      } else {
+        checkQueue();
+      }
+    }, 300);
+  }
 
   sendButton.onclick = function() {
     var text = field.value;
@@ -69,12 +103,17 @@ window.onload = function() {
 
   var mousedown = function () {
     audio.play();
-    socket.emit('beepStart', { room: roomId });
+    // socket.emit('beepStart', { room: roomId });
+    pushButton.className = 'key key-down';
+    start = +new Date();
   };
 
   var mouseup = function () {
     audio.pause();
-    socket.emit('beepEnd', { room: roomId });
+    pushButton.className = 'key key-up';
+    end = +new Date();
+    var diff = end - start;
+    socket.emit('beep', { len: diff, room: roomId });
   };
 
   pushButton.onmousedown = mousedown;
@@ -87,7 +126,7 @@ window.onload = function() {
 function makeid(len) {
   len = len || 5;
   var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
   for(var i=0; i < len; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   return text;
