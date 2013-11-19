@@ -1,9 +1,23 @@
 body {
   background: url('/images/ricepaper_v3.png') repeat;
+  font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+}
+
+.container {
+  width: 800px;
+  margin: 25px auto;
+  padding: 20px;
+  background: white;
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .key {
-  background: url('/images/morsenode-sprite2.png') no-repeat;
+  background: url('/images/morsenode-sprite.png') no-repeat;
+  margin: 0 auto;
 }
 
 .key-up {
