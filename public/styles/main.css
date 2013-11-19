@@ -26,13 +26,13 @@ a {
 }
 
 .key-up {
-  background-position: -19px -31px;
+  background-position: 0 0;
   width: 465px;
   height: 265px;
 }
 
 .key-down {
-  background-position: -20px -360px;
+  background-position: 0 -265px;
   width: 465px;
   height: 265px;
 }
