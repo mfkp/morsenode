@@ -6,6 +6,7 @@ window.onload = function() {
   var sendButton = document.getElementById('send');
   var content = document.getElementById('content');
   var pushButton = document.getElementById('push-button');
+  var body = document.getElementsByTagName("body")[0];
   var start, end;
   var queue = [];
 
@@ -112,6 +113,18 @@ window.onload = function() {
   pushButton.ontouchstart = mousedown;
   pushButton.onmouseup = mouseup;
   pushButton.ontouchend = mouseup;
+
+  body.onkeydown = function(evt) {
+    evt = evt || window.event;
+    if (evt.keyCode === 32 && evt.target.tagName.toLowerCase() !== 'input')
+      mousedown();
+  };
+
+  body.onkeyup = function(evt) {
+    evt = evt || window.event;
+    if (evt.keyCode === 32 && evt.target.tagName.toLowerCase() !== 'input')
+      mouseup();
+  };
 
 }
 
