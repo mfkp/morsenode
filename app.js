@@ -1,5 +1,6 @@
 var express = require('express'),
-    exphbs  = require('express3-handlebars');
+    exphbs  = require('express3-handlebars'),
+    morse = require('morse');
 var app = express();
 var port = process.env.PORT || 5000;
 
@@ -20,6 +21,7 @@ io.sockets.on('connection', function (socket) {
     socket.join(room);
   });
   socket.on('send', function (data) {
+    data.message = data.message + ': ' + morse.encode(data.message).replace(/\.\.\.\.\.\.\./g, '   ');
     io.sockets.in(data.room).emit('message', data); // to other users + self
   });
   socket.on('beep', function(data) {

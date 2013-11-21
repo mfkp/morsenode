@@ -11,6 +11,9 @@ window.onload = function() {
   var queue = [];
   var spaceDown = false;
 
+  var dot = 100,
+      dash = 300;
+
   // create the sending audio beep tone
   var waveLow = new RIFFWAVE();
   var data = [];
@@ -46,25 +49,42 @@ window.onload = function() {
   socket.emit('room', roomId);
 
   socket.on('message', function (data) {
-    if(data.message) {
+    if (data.message) {
       messages.push(data.message);
       var html = '';
       for(var i=0; i<messages.length; i++) {
         html += messages[i] + '<br />';
       }
       content.innerHTML = html;
+
+      // play the message
+      for (var i = 0, len = data.message.length; i < len; i++) {
+        var type = data.message[i];
+        switch (type) {
+          case '.':
+            queue.push({len: dot});
+            queue.push({len: dot, type: 'space'});
+            break;
+          case '-':
+            queue.push({len: dash});
+            queue.push({len: dot, type: 'space'});
+            break;
+          case ' ':
+            queue.push({len: 300, type: 'space'});
+            break;
+        }
+      }
+      checkQueue(100);
     } else {
       console.log("There is a problem:", data);
     }
   });
 
-  socket.on('beep', function(len) {
-    console.log(len);
+  socket.on('beep', function(len, type) {
     if (audio2.paused) {
       playAudio(audio2, len);
     } else {
-      queue.push(len);
-      console.log(queue);
+      queue.push({len: len});
       checkQueue();
     }
   });
@@ -78,17 +98,21 @@ window.onload = function() {
     }, len);
   };
 
-  var checkQueue = function() {
+  var checkQueue = function(time) {
+    time = time || 300
     window.setTimeout(function() {
       if (audio2.paused) {
         if (queue.length > 0) {
-          playAudio(audio2, queue.shift());
-          checkQueue();
+          var item = queue.shift();
+          if (item.type !== 'space') {
+            playAudio(audio2, item.len);
+          }
+          checkQueue(time);
         }
       } else {
-        checkQueue();
+        checkQueue(time);
       }
-    }, 300);
+    }, time);
   }
 
   sendButton.onclick = function() {
