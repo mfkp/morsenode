@@ -118,3 +118,9 @@ input[type=text] {
   -ms-user-select: initial; /* IE10+ */
   -user-select: initial;
 }
+
+.social {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+}
