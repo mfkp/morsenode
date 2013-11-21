@@ -9,6 +9,7 @@ window.onload = function() {
   var body = document.getElementsByTagName("body")[0];
   var start, end;
   var queue = [];
+  var spaceDown = false;
 
   // create the sending audio beep tone
   var waveLow = new RIFFWAVE();
@@ -58,6 +59,7 @@ window.onload = function() {
   });
 
   socket.on('beep', function(len) {
+    console.log(len);
     if (audio2.paused) {
       playAudio(audio2, len);
     } else {
@@ -116,14 +118,18 @@ window.onload = function() {
 
   body.onkeydown = function(evt) {
     evt = evt || window.event;
-    if (evt.keyCode === 32 && evt.target.tagName.toLowerCase() !== 'input')
+    if (evt.keyCode === 32 && evt.target.tagName.toLowerCase() !== 'input' && !spaceDown) {
       mousedown();
+      spaceDown = true;
+    }
   };
 
   body.onkeyup = function(evt) {
     evt = evt || window.event;
-    if (evt.keyCode === 32 && evt.target.tagName.toLowerCase() !== 'input')
+    if (evt.keyCode === 32 && evt.target.tagName.toLowerCase() !== 'input') {
+      spaceDown = false;
       mouseup();
+    }
   };
 
 }
