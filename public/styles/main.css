@@ -1,23 +1,35 @@
 body {
+  margin: 0;
   background: url('/images/ricepaper_v3.png') repeat;
+  font-size: 14px;
+  color: #362730;
   font-family: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
 }
 
 a {
-  color: #6A1E3C;
+  color: #923F50;
+}
+
+header, footer {
+  background-color: white;
+  background-color: rgba(238, 211, 158, 0.3);
+  padding: 30px 0;
+  text-align: center;
 }
 
 .container {
   max-width: 800px;
   min-width: 465px;
   margin: 25px auto;
-  padding: 20px;
-  background: white;
-  background: rgba(255, 255, 255, 0.5);
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
   text-align: center;
+}
+
+#frame {
+  background: url(/images/frame.png) no-repeat;
+  width: 592px;
+  height: 293px;
+  padding-top: 135px;
+  margin: 20px auto;
 }
 
 .key {
@@ -37,10 +49,65 @@ a {
   height: 265px;
 }
 
+#content {
+  text-align: left;
+  font-size: 18px;
+}
+
 .no-select {
   -webkit-user-select: none; /* webkit (safari, chrome) browsers */
   -moz-user-select: none; /* mozilla browsers */
   -khtml-user-select: none; /* webkit (konqueror) browsers */
   -ms-user-select: none; /* IE10+ */
   -user-select: none;
+}
+
+.github {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+}
+
+.credits {
+  position: absolute;
+  top: 10px;
+  right: 150px;
+  text-align: right;
+}
+
+button {
+  background: #923F50;
+  border: 0;
+  color: white;
+  padding: 7px 10px;
+/*  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;*/
+}
+
+input[type=text] {
+  width: 200px;
+  background: none;
+  height: 20px;
+  border: 2px solid #A32E4B;
+  padding: 2px 5px;
+}
+
+.red {
+  color: #923d51;
+  font-size: 14px;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #A42F4B;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #A42F4B;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #A42F4B;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #A42F4B;
 }

@@ -118,7 +118,8 @@ window.onload = function() {
   sendButton.onclick = function() {
     var text = field.value;
     field.value = '';
-    socket.emit('send', { message: text, room: roomId });
+    if (!!text)
+      socket.emit('send', { message: text, room: roomId });
   };
 
   var mousedown = function () {

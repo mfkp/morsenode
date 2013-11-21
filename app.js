@@ -21,7 +21,7 @@ io.sockets.on('connection', function (socket) {
     socket.join(room);
   });
   socket.on('send', function (data) {
-    data.message = data.message + ': ' + morse.encode(data.message).replace(/\.\.\.\.\.\.\./g, '   ');
+    data.message = '<span class="red">' + data.message + ':</span> ' + morse.encode(data.message).replace(/\.\.\.\.\.\.\./g, '   ');
     io.sockets.in(data.room).emit('message', data); // to other users + self
   });
   socket.on('beep', function(data) {
