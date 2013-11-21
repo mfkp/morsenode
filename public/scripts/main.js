@@ -6,6 +6,7 @@ window.onload = function() {
   var sendButton = document.getElementById('send');
   var content = document.getElementById('content');
   var pushButton = document.getElementById('push-button');
+  var pageUrl = document.getElementById('page-url');
   var body = document.getElementsByTagName("body")[0];
   var start, end;
   var queue = [];
@@ -45,6 +46,7 @@ window.onload = function() {
     roomId = makeid(5);
     window.location.hash = '#' + roomId;
   }
+  pageUrl.innerHTML = window.location.href;
 
   socket.emit('room', roomId);
 

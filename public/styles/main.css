@@ -77,13 +77,10 @@ header, footer {
 }
 
 button {
-  background: #923F50;
+  background: #A32F4B;
   border: 0;
   color: white;
   padding: 7px 10px;
-/*  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;*/
 }
 
 input[type=text] {
@@ -110,4 +107,14 @@ input[type=text] {
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
     color: #A42F4B;
+}
+
+#page-url {
+  background: #e0e0e0;
+  padding: 7px;
+  -webkit-user-select: initial; /* webkit (safari, chrome) browsers */
+  -moz-user-select: initial; /* mozilla browsers */
+  -khtml-user-select: initial; /* webkit (konqueror) browsers */
+  -ms-user-select: initial; /* IE10+ */
+  -user-select: initial;
 }
