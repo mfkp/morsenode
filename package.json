@@ -5,7 +5,8 @@
     "dependencies": {
         "socket.io": "latest",
         "express": "latest",
-        "express3-handlebars": "latest"
+        "express3-handlebars": "latest",
+        "morse": "latest"
     },
     "author": "@mfkp"
 }
