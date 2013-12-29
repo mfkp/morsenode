@@ -101,7 +101,7 @@ window.onload = function() {
   };
 
   var checkQueue = function(time) {
-    time = time || 300
+    time = time || 300;
     window.setTimeout(function() {
       if (audio2.paused) {
         if (queue.length > 0) {
